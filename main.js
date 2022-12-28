@@ -16,6 +16,8 @@ app.use((err, req,res,next) => {
     res.json({"msg": err.message})
 })
 
+
+//connect to database, port
 mongoose.connect('mongodb://127.0.0.1:27017/chat')
 .then(()=>{
     console.log('connected')
