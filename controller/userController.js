@@ -20,6 +20,17 @@ const getUserById = (req,res,next)=>{
 
 }
 
+const updateUser = (req, res, next) =>{
+
+    User.findByIdAndUpdate(req.params.id, {$set:req.body}, {new : true})
+    .then((user) =>{
+        res.json(user)
+    }).catch(next)
+
+    
+}
+
+
 
 const deleteUser = (req, res, next) =>{
     User.findByIdAndDelete(req.params.id)
@@ -42,5 +53,6 @@ module.exports = {
     getAllUsers,
     getUserById,
     deleteUser,
-    deleteAllUsers
+    deleteAllUsers,
+    updateUser
 }
