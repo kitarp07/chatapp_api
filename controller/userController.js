@@ -1,5 +1,15 @@
 const User = require ('../model/user')
 
+
+const getAllUsers = (req,res,next)=>{
+    User.find()
+    .then((users)=>{
+        res.json(users)
+    }).catch((err)=> next(err))
+   
+}
+
+
 const getUserById = (req,res,next)=>{
 
     User.findById(req.params.id)
@@ -29,6 +39,7 @@ const deleteAllUsers = (req, res)=>{
 }
 
 module.exports = {
+    getAllUsers,
     getUserById,
     deleteUser,
     deleteAllUsers

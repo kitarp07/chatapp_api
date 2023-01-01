@@ -76,6 +76,7 @@ router.post('/login', (req, res, next) => {
 
 
 router.route('/')
+.get(userController.getAllUsers)
 .delete(userController.deleteAllUsers)
 
 router.route('/:id')
