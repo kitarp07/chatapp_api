@@ -30,13 +30,13 @@ const updateUser = (req, res, next) =>{
             if (err) return next(err);
             user.username = req.body.username
             user.password = hash
-            // if(req.body.role) user.role = req.body.role
+            if(req.body.role) user.role = req.body.role
             user.save().then(user => {
                 res.status(201).json({
                     'status': 'User updated successfully',
                     userId: user._id,
                     username: user.username,
-                    // role: user.role
+                    role: user.role
                 })
             }).catch(next)
         })

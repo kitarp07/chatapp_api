@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const userController = require('../controller/userController')
-const { verifyUser } = require('../middleware/auth')
+const { verifyUser, verifyAdmin } = require('../middleware/auth')
 
 router.post('/register', (req, res, next) => {
     User.findOne({ username: req.body.username })
@@ -83,9 +83,10 @@ router.use(verifyUser)
 .delete(userController.deleteUser)
 
 
-router.route('/')
-.get(userController.getAllUsers)
-.delete(userController.deleteAllUsers)
+router
+.route('/')
+.get(verifyUser, verifyAdmin, userController.getAllUsers)
+.delete(verifyUser, verifyAdmin, userController.deleteAllUsers)
 
 
 
