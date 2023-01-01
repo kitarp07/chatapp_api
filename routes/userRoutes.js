@@ -31,4 +31,46 @@ router.post('/register', (req, res, next) => {
 
 })
 
+router.post('/login', (req, res, next) => {
+    User.findOne({ username: req.body.username })
+        .then(user => {
+            if (user == null) {
+                let err = new Error(`User ${req.body.username} not registered`)
+                res.status(404)
+                return next(err)
+            }
+
+            bcrypt.compare(req.body.password, user.password, (err, statuss) => {
+                if (err) return next(err)
+                if (!statuss) {
+                    let err = new Error('Password does not match')
+                    return next(err)
+                }
+                let data = {
+                    userId: user._id,
+                    username: user.username,
+                    role: user.role
+                }
+                jwt.sign(data, process.env.SECRET,
+                    { 'expiresIn': '1d' },
+                    (err, token) => {
+                        if (err) return next(err)
+
+                        res.json({
+                            'statuss': 'Login Successful',
+                            token: token
+
+                        })
+
+
+                    })
+
+
+            })
+
+        }).catch(next)
+
+
+})
+
 module.exports = router
