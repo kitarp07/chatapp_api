@@ -3,6 +3,7 @@ const User = require('../model/user')
 const bcrypt = require('bcryptjs')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
+const userController = require('../controller/userController')
 
 router.post('/register', (req, res, next) => {
     User.findOne({ username: req.body.username })
@@ -72,5 +73,9 @@ router.post('/login', (req, res, next) => {
 
 
 })
+
+
+router.route('/:id')
+.delete(userController.deleteUser)
 
 module.exports = router
