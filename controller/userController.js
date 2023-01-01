@@ -19,7 +19,17 @@ const deleteUser = (req, res, next) =>{
 
 }
 
+//delete all users
+const deleteAllUsers = (req, res)=>{
+    User.deleteMany()
+    .then((reply) => {
+        res.json(reply)
+    }).catch(console.log)
+
+}
+
 module.exports = {
     getUserById,
     deleteUser,
+    deleteAllUsers
 }
