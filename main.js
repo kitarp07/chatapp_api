@@ -1,6 +1,7 @@
 const exp = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
+const userRoutes = require('./routes/userRoutes')
 
 const app = exp()
 const port = 5000
@@ -26,3 +27,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/chat')
     })
     
 }).catch((err)=> console.log(err)) 
+
+
+//routes for users
+app.use('/user', userRoutes)
