@@ -1,26 +1,29 @@
-const jwt = require('jsonwebtoken')
+const jwt  = require('jsonwebtoken')
 
-const verifyUser = (req, res, next) => {
-    if(!req.headers.authorization) {
-        let err = new Error("Authorization info missing")
+const verifyUser = (req, res, next) =>{
+    console.log(req.headers)
+    console.log(req.headers.authorization)
+    if(!req.headers.authorization){
+        let err = new Error( 'Authorization info missing')
         res.status(400)
+
     }
-
     token = req.headers.authorization.split(' ')[1]
+    console.log(token)
 
-
-    jwt.verify(token, process.env.SECRET, (err, data)=> {
+    jwt.verify(token, process.env.SECRET, (err, data)=>{
         if(err){
             return next(err)
         }
         else{
+
+            console.log(data)
             req.user = data
             next()
         }
+
+        
     })
-
-   
-
 }
 
 const verifyAdmin = (req,res, next)=>{
@@ -35,6 +38,6 @@ const verifyAdmin = (req,res, next)=>{
 
 
 module.exports = { 
-    verifyUser,
+    verifyUser, 
     verifyAdmin
 }

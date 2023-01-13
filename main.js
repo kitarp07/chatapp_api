@@ -1,26 +1,17 @@
-require('dotenv').config()
-const exp = require('express')
-const path = require('path')
-const mongoose = require('mongoose')
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose")
+const path = require("path");
 const userRoutes = require('./routes/userRoutes')
 
-const app = exp()
-const port = 5000
 
 
-//express defined middleware
-app.use(exp.json())
 
-//error handling
-app.use((err, req,res,next) => {
-    console.log(err.stack)
-    if(res.statusCode==200) res.status(500)
-    res.json({"msg": err.message})
-})
+const app = express()
+const port = 3000
 
 
-//connect to database, port
-mongoose.connect('mongodb://127.0.0.1:27017/chat')
+mongoose.connect('mongodb://127.0.0.1:27017/fchat')
 .then(()=>{
     console.log('connected')
     app.listen(port, ()=>{
@@ -30,5 +21,22 @@ mongoose.connect('mongodb://127.0.0.1:27017/chat')
 }).catch((err)=> console.log(err)) 
 
 
-//routes for users
+
+app.use(
+    "/images",
+    express.static(path.join(__dirname, "/images"))
+);
+
+
+//express defined middlware
+app.use(express.json())
 app.use('/user', userRoutes)
+
+//error handling middlware 
+app.use((err, req,res,next) => {
+    console.log(err.stack)
+    if(res.statusCode==200) res.status(500)
+    res.json({"msg": err.message})
+})
+
+
