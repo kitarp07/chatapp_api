@@ -6,9 +6,25 @@ const userRoutes = require('./routes/userRoutes')
 
 
 
-
+const io = require('socket.io')(5000)
 const app = express()
 const port = 3000
+
+const users = {};
+
+io.on('connection', socket => {
+    socket.on('user-joined', name => {
+        users[socket.id] = name;
+        socket.broadcast.emit('user joined', name)
+
+    })
+
+    socket.on('send', message => {
+        socket.broadcast.emit('receive', {message: message, name: users[socket.id]})
+    })
+})
+
+
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/fchat')
