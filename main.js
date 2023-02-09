@@ -1,28 +1,35 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors")
 const mongoose = require("mongoose")
 const path = require("path");
 const userRoutes = require('./routes/userRoutes')
+const messageRoutes = require('./routes/messageRoutes')
+const chatRoutes = require('./routes/chatRoutes')
 
 
 
 const io = require('socket.io')(5000)
+
 const app = express()
-const port = 3000
+app.use(cors())
+const port = 3002
 
-const users = {};
 
-io.on('connection', socket => {
-    socket.on('user-joined', name => {
-        users[socket.id] = name;
-        socket.broadcast.emit('user joined', name)
 
-    })
+// const users = {};
 
-    socket.on('send', message => {
-        socket.broadcast.emit('receive', {message: message, name: users[socket.id]})
-    })
-})
+// io.on('connection', socket => {
+//     socket.on('user-joined', name => {
+//         users[socket.id] = name;
+//         socket.broadcast.emit('user joined', name)
+
+//     })
+
+//     socket.on('send', message => {
+//         socket.broadcast.emit('receive', {message: message, name: users[socket.id]})
+//     })
+// })
 
 
 
@@ -47,6 +54,8 @@ app.use(
 //express defined middlware
 app.use(express.json())
 app.use('/user', userRoutes)
+app.use('/chat', chatRoutes)
+app.use('/message', messageRoutes)
 
 //error handling middlware 
 app.use((err, req,res,next) => {

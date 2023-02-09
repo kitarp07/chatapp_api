@@ -13,7 +13,6 @@ const getAllUsers = (req,res,next)=>{
 
 
 const getUserById = (req,res,next)=>{
-
     User.findById(req.params.id)
     .then((User) => {
         res.json(User)

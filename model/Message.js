@@ -2,20 +2,17 @@ const mongoose = require('mongoose')
 
 const messageSchema = mongoose.Schema({
 
-    message: {
-        text: {
-            type: String,
-            required: true
-
-        },
-
+    chatId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chat',
     },
-
-    users: Array,
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
+    },
+    message: {
+        type: String,
     }
 }, {timestamps: true})
 

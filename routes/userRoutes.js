@@ -84,7 +84,8 @@ router.post('/login', (req, res, next) => {
 
                         res.json({
                             'statuss': 'Login Successful',
-                            token: token
+                            token: token,
+                            user: user
 
                         })
 
