@@ -12,12 +12,13 @@ const chatController = require('../controller/chatController')
 
 router.route('/')
     .get(chatController.getAllChat)
-   
+
     .post(chatController.addChat)
 
-router.route('/:id')
+router.route('/:id/messages')
     .get(chatController.getChatbyId)
 
-
+router.route('/:userId/chats')
+    .get(chatController.getChatbyuserId)
 
 module.exports = router;

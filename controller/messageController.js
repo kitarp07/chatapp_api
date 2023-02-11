@@ -45,11 +45,7 @@ const getMessagebyChatId = async (req, res, next) => {
 
         const messages = await Message.find({ chatId: req.params.chatId })
 
-        res.status(200).json({
-            success: true,
-            message: "Messages",
-            data: messages,
-        });
+        res.status(200).json(messages);
 
     } catch (err) {
         res.status(500).json({

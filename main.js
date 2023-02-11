@@ -15,6 +15,10 @@ const app = express()
 app.use(cors())
 const port = 3002
 
+const DB_URI = (process.env.NODE_ENV === 'test')
+    ? process.env.TEST_DB_URI
+    : process.env.DB_URI
+
 
 
 // const users = {};
@@ -34,7 +38,7 @@ const port = 3002
 
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/fchat')
+mongoose.connect(DB_URI)
 .then(()=>{
     console.log('connected')
     app.listen(port, ()=>{
