@@ -22,10 +22,39 @@ const getAllChat = (req, res, next) => {
 const getChatbyuserId = async (req, res, next) => {
 
     try {
+        
 
-        const conversation = await Chat.find({ members: {$in: [req.params.userId], }});
+        const conversation = await Chat.find({ members: { $in: [req.params.userId], } });
 
-        res.status(200).json(conversation);
+        for(i=0; i++; i<conversation.length){
+
+
+        }
+        
+        
+
+       
+
+
+        // res.status(200).json({ data: conversation });
+        // res.status(200).json(conversation);
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err,
+        });
+    }
+    //
+}
+
+const getFriendsInChat = async (req, res, next) => {
+
+    try {
+
+        const conversation = await Chat.find({ members: { $in: [req.params.userId], } });
+
+        res.status(200).json({ data: conversation });
+        // res.status(200).json(conversation);
     } catch (err) {
         res.status(500).json({
             success: false,
@@ -71,6 +100,7 @@ const getChatbyId = (req, res, next) => {
                 message: "Messages",
                 data: chat,
             });
+            console.log('log')
         }).catch(
             (err) => {
                 res.status(500).json({
