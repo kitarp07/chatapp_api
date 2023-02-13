@@ -6,14 +6,22 @@ const path = require("path");
 const userRoutes = require('./routes/userRoutes')
 const messageRoutes = require('./routes/messageRoutes')
 const chatRoutes = require('./routes/chatRoutes')
+const http =require("http")
 
 
 
-const io = require('socket.io')(5000)
+
 
 const app = express()
 app.use(cors())
 const port = 3002
+
+const server = http.createServer(app)
+const io = require('socket.io')(server, {
+    cors: {
+        origin: "*"
+    }
+})
 
 const DB_URI = (process.env.NODE_ENV === 'test')
     ? process.env.TEST_DB_URI
@@ -21,19 +29,20 @@ const DB_URI = (process.env.NODE_ENV === 'test')
 
 
 
-// const users = {};
 
-// io.on('connection', socket => {
-//     socket.on('user-joined', name => {
-//         users[socket.id] = name;
-//         socket.broadcast.emit('user joined', name)
+io.on('connection', socket => {
+    console.log("connected io")
+    console.log(socket.id)
 
-//     })
+    socket.on("/event", (res)=>{
+        console.log(res)
 
-//     socket.on('send', message => {
-//         socket.broadcast.emit('receive', {message: message, name: users[socket.id]})
-//     })
-// })
+    })
+})
+
+server.listen(port, "0.0.0.0", () =>{
+    console.log("server started")
+})
 
 
 

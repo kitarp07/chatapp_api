@@ -106,6 +106,10 @@ router.route('/:id')
 .delete(userController.deleteUser)
 .put(userController.updateUser)
 
+router.route('/:id/contacts')
+.get(userController.getUsersExceptId)
+
+
 
 router
 .route('/')
