@@ -23,6 +23,8 @@ const io = require('socket.io')(server, {
     }
 })
 
+var clients = {};
+
 const DB_URI = (process.env.NODE_ENV === 'test')
     ? process.env.TEST_DB_URI
     : process.env.DB_URI
@@ -34,8 +36,16 @@ io.on('connection', socket => {
     console.log("connected io")
     console.log(socket.id)
 
-    socket.on("/event", (res)=>{
+    socket.on("/event", (id)=>{
+        console.log(id)
+        clients[id] = socket;
+        console.log(clients)
+
+    })
+
+    socket.on("message", (res)=>{
         console.log(res)
+       
 
     })
 })

@@ -12,12 +12,28 @@ const getAllUsers = (req, res, next) => {
 }
 
 
-const getUserById = (req, res, next) => {
-    User.findById(req.params.id)
-        .then((User) => {
-            res.json(User)
+const getUserById = async  (req, res, next) => {
 
-        }).catch(next)
+    try {
+       
+        const user = await User.find({ _id: req.params.id })
+        res.status(201).json({data: user})
+    }catch(err){
+        res.status(500).json({
+            success: false
+        })
+
+    }
+
+    // User.findById(req.params.id)
+    //     .then((user) => {
+    //         res.status(200).json({ data: user });
+
+    //     }).catch(next)
+
+    
+
+
 
 
 }

@@ -20,24 +20,31 @@ const getAllChat = (req, res, next) => {
 }
 
 const getChatbyuserId = async (req, res, next) => {
+    const users = []
 
     try {
-        
+
 
         const conversation = await Chat.find({ members: { $in: [req.params.userId], } });
 
-        for(i=0; i++; i<conversation.length){
+        // Chat.find({ members: { $in: [req.params.userId], } }).then(c => {
+        //     res.json(c)
+
+        // }).catch(next);
+
+        // for(i=0; i++; i<conversation.length){
 
 
-        }
-        
-        
 
-       
+        // }
 
 
-        // res.status(200).json({ data: conversation });
-        // res.status(200).json(conversation);
+
+
+
+
+        res.status(200).json({ data: conversation });
+        //  res.status(200).json(users);
     } catch (err) {
         res.status(500).json({
             success: false,
