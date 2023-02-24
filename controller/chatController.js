@@ -1,4 +1,6 @@
 const Chat = require('../model/Chat')
+const Message = require('../model/Message')
+const messageController = require('../controller/messageController');
 
 const getAllChat = (req, res, next) => {
     Chat.find({}).then(
@@ -20,7 +22,7 @@ const getAllChat = (req, res, next) => {
 }
 
 const getChatbyuserId = async (req, res, next) => {
-    const users = []
+   
 
     try {
 
@@ -43,7 +45,44 @@ const getChatbyuserId = async (req, res, next) => {
 
 
 
-        res.status(200).json({ data: conversation });
+        // res.status(200).json({ data: conversation });
+        res.status(200).json(conversation);
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err,
+        });
+    }
+    //
+}
+
+const getChatbyusers = async (req, res, next) => {
+
+    try {
+
+
+        const conversation = await Chat.find({ members: { $in: [req.params.userId && req.params.fId], } });
+        console.log(conversation)
+        if (conversation === []) {
+            res.status(500).json({
+                success: false,
+
+            });
+
+
+        }
+        else {
+            res.status(200).json({ data: conversation });
+
+        }
+
+
+
+
+
+
+
+
         //  res.status(200).json(users);
     } catch (err) {
         res.status(500).json({
@@ -80,7 +119,7 @@ const addChat = async (req, res, next) => {
 
         });
         if (chat) {
-            res.json(chat)
+            res.status(200).json(chat)
         }
 
     }
@@ -94,10 +133,22 @@ const addChat = async (req, res, next) => {
 const deleteChat = (req, res, next) => {
     Chat.findByIdAndDelete(req.params.id)
         .then((msg) => {
-            res.json("Succesfully deleted")
+            res.json(msg)
         }).catch(next)
 
 }
+
+// const deleteChat = (req, res, next) => {
+//     Chat.deleteMany()
+//         .then( (msg) => {
+            
+           
+//             res.status(200).json(msg)
+//         }).catch(next)
+
+
+
+// }
 
 const getChatbyId = (req, res, next) => {
     Chat.findById(req.params.id).then(
@@ -126,5 +177,6 @@ module.exports = {
     addChat,
     deleteChat,
     getChatbyId,
-    getChatbyuserId
+    getChatbyuserId,
+    getChatbyusers
 }

@@ -15,10 +15,16 @@ router.route('/')
 
     .post(chatController.addChat)
 
+router.route('/:id')
+    .delete(chatController.deleteChat)
+
+    .post(chatController.addChat)
 router.route('/:id/messages')
     .get(chatController.getChatbyId)
 
 router.route('/:userId/chats')
     .get(chatController.getChatbyuserId)
+router.route('/:userId/:fId/chats')
+    .get(chatController.getChatbyusers)
 
 module.exports = router;

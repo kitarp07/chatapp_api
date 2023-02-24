@@ -12,13 +12,35 @@ const getAllUsers = (req, res, next) => {
 }
 
 
-const getUserById = async  (req, res, next) => {
+const getUserById = async (req, res, next) => {
+
+    // try {
+
+    //     const user = await User.find({ _id: req.params.id })
+    //     // res.status(201).json({data: user})
+    //     res.status(201).json(user)
+    // } catch (err) {
+    //     res.status(500).json({
+    //         success: false
+    //     })
+
+    // }
+
+    User.findById(req.params.id)
+        .then((user) => {
+            res.status(200).json(user);
+
+        }).catch(next)
+
+}
+
+const getUserByUsername = async (req, res, next) => {
 
     try {
-       
+
         const user = await User.find({ _id: req.params.id })
-        res.status(201).json({data: user})
-    }catch(err){
+        res.status(201).json({ data: user })
+    } catch (err) {
         res.status(500).json({
             success: false
         })
@@ -30,11 +52,6 @@ const getUserById = async  (req, res, next) => {
     //         res.status(200).json({ data: user });
 
     //     }).catch(next)
-
-    
-
-
-
 
 }
 
@@ -59,23 +76,42 @@ const updateUser = (req, res, next) => {
 
     User.findById(req.params.id)
         .then((user) => {
-            bcrypt.hash(req.body.password, 10, (err, hash) => {
-                if (err) return next(err);
+            if (req.body.fname) {
+                user.fname = req.body.fname
+            }
+            if (req.body.lname) {
+                user.lname = req.body.lname
+
+            }
+            if (req.body.username) {
                 user.username = req.body.username
-                user.password = hash
-                if (req.body.role) user.role = req.body.role
-                user.save().then(user => {
-                    res.status(201).json({
-                        'status': 'User updated successfully',
-                        userId: user._id,
-                        username: user.username,
-                        role: user.role
-                    })
-                }).catch(next)
-            })
+            }
+
+            if (req.body.password) {
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
+                    if (err) return next(err);
+
+                    user.password = hash
+
+                })
 
 
-            res.json(user)
+            }
+
+
+            user.save().then(user => {
+                console.log(user);
+                res.status(201).json({
+                    'status': 'User updated successfully',
+                    userId: user._id,
+                    username: user.username,
+
+                })
+            }).catch(next)
+
+
+
+
         }).catch(next)
 
 
