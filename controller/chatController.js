@@ -123,7 +123,7 @@ const addChat = async (req, res, next) => {
 }
 
 const addChat2 = async (req, res, next) => {
-    Chat.findOne({ members : [req.params.userId  ,  req.params.friendId] }).then(
+    Chat.findOne({ members: [req.params.userId, req.params.friendId] }).then(
         chat => {
             console.log(req.params.userId)
             console.log(req.params.friendId)
@@ -168,7 +168,10 @@ const deleteChat = async (req, res, next) => {
     Chat.findByIdAndDelete(req.params.id)
         .then((msg) => {
 
-            res.status(201).json(msg);
+            res.status(201).json({
+                data: msg,
+                'status': "Chat has been deleted"
+            });
         }).catch(next)
 
 }

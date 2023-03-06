@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1678094478397" clover="3.2.0">
-  <project timestamp="1678094478397" name="All files">
-    <metrics statements="310" coveredstatements="183" conditionals="60" coveredconditionals="18" methods="72" coveredmethods="23" elements="442" coveredelements="224" complexity="0" loc="310" ncloc="310" packages="5" files="11" classes="11"/>
+<coverage generated="1678107254226" clover="3.2.0">
+  <project timestamp="1678107254226" name="All files">
+    <metrics statements="310" coveredstatements="189" conditionals="60" coveredconditionals="18" methods="72" coveredmethods="26" elements="442" coveredelements="233" complexity="0" loc="310" ncloc="310" packages="5" files="11" classes="11"/>
     <package name="t1-backend-web-api-kitarp07">
       <metrics statements="51" coveredstatements="31" conditionals="6" coveredconditionals="1" methods="15" coveredmethods="2"/>
       <file name="main.js" path="C:\Users\user\Desktop\api\t1-backend-web-api-kitarp07\main.js">
@@ -60,7 +60,7 @@
       </file>
     </package>
     <package name="t1-backend-web-api-kitarp07.controller">
-      <metrics statements="127" coveredstatements="46" conditionals="24" coveredconditionals="4" methods="40" coveredmethods="8"/>
+      <metrics statements="127" coveredstatements="52" conditionals="24" coveredconditionals="4" methods="40" coveredmethods="11"/>
       <file name="chatController.js" path="C:\Users\user\Desktop\api\t1-backend-web-api-kitarp07\controller\chatController.js">
         <metrics statements="53" coveredstatements="23" conditionals="8" coveredconditionals="4" methods="15" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
@@ -110,15 +110,15 @@
         <line num="167" count="1" type="stmt"/>
         <line num="168" count="0" type="stmt"/>
         <line num="171" count="0" type="stmt"/>
-        <line num="188" count="1" type="stmt"/>
-        <line num="189" count="0" type="stmt"/>
-        <line num="191" count="0" type="stmt"/>
-        <line num="196" count="0" type="stmt"/>
+        <line num="191" count="1" type="stmt"/>
+        <line num="192" count="0" type="stmt"/>
+        <line num="194" count="0" type="stmt"/>
         <line num="199" count="0" type="stmt"/>
-        <line num="210" count="1" type="stmt"/>
+        <line num="202" count="0" type="stmt"/>
+        <line num="213" count="1" type="stmt"/>
       </file>
       <file name="messageController.js" path="C:\Users\user\Desktop\api\t1-backend-web-api-kitarp07\controller\messageController.js">
-        <metrics statements="31" coveredstatements="10" conditionals="6" coveredconditionals="0" methods="10" coveredmethods="2"/>
+        <metrics statements="31" coveredstatements="12" conditionals="6" coveredconditionals="0" methods="10" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -142,8 +142,8 @@
         <line num="80" count="0" type="stmt"/>
         <line num="83" count="0" type="stmt"/>
         <line num="92" count="1" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
         <line num="100" count="1" type="stmt"/>
         <line num="101" count="0" type="stmt"/>
         <line num="103" count="0" type="stmt"/>
@@ -152,7 +152,7 @@
         <line num="113" count="1" type="stmt"/>
       </file>
       <file name="userController.js" path="C:\Users\user\Desktop\api\t1-backend-web-api-kitarp07\controller\userController.js">
-        <metrics statements="43" coveredstatements="13" conditionals="10" coveredconditionals="0" methods="15" coveredmethods="2"/>
+        <metrics statements="43" coveredstatements="17" conditionals="10" coveredconditionals="0" methods="15" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -169,10 +169,10 @@
         <line num="42" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
         <line num="76" count="1" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
@@ -192,10 +192,10 @@
         <line num="123" count="1" type="stmt"/>
         <line num="124" count="1" type="stmt"/>
         <line num="126" count="1" type="stmt"/>
-        <line num="132" count="1" type="stmt"/>
-        <line num="133" count="0" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
-        <line num="140" count="1" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="136" count="0" type="stmt"/>
+        <line num="138" count="0" type="stmt"/>
+        <line num="143" count="1" type="stmt"/>
       </file>
     </package>
     <package name="t1-backend-web-api-kitarp07.middleware">

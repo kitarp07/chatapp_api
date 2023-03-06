@@ -70,22 +70,14 @@ test('user update', async () => {
 
 test('user delete', async () => {
 
-
-
     const userr = await User.findOne({ username: "newwillsmith" })
-
-
-
-
     await api.delete(`/user/${userr._id}`).send()
-        .expect(201)
+        .expect(200)
         .expect(res => {
             console.log(res)
         })
 
 })
-
-
 
 
 // chat tests
@@ -154,6 +146,25 @@ test('get chat by users', async () => {
 
 })
 
+//get contacts
+
+test('get contacts', async () => {
+
+    const u1 = await User.findOne({ username: user1.username })
+    const u2 = await User.findOne({ username: user2.username })
+
+
+    await api.get(`/user/${u1._id}/contacts`).send()
+        .expect(200)
+        .expect(res => {
+            
+
+            console.log(res)
+        })
+
+})
+
+
 
 //get chat
 
@@ -199,6 +210,17 @@ test('send messages', async () => {
   
     await api.post('/message').send(data)
     .expect(201)
+    .expect(res => {
+        
+    })
+
+})
+
+test('delete messages', async () => {
+    
+  
+    await api.delete('/message').send()
+    .expect(200)
     .expect(res => {
         
     })

@@ -92,7 +92,7 @@ const getMessagebyChatId = async (req, res, next) => {
 const deleteMessage = (req, res, next) => {
     Message.deleteMany()
         .then((msg) => {
-            res.json("Succesfully deleted")
+            res.status(200).json("Succesfully deleted")
         }).catch(next)
 
 }

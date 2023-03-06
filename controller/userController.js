@@ -123,7 +123,10 @@ const updateUser = (req, res, next) => {
 const deleteUser = (req, res, next) => {
     User.findByIdAndDelete(req.params.id)
         .then((msg) => {
-            res.status(201).json(msg)
+            res.status(200).json({
+                data: msg,
+                'status': 'User has been deleted',
+            })
         }).catch(next)
 
 }
