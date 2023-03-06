@@ -7,12 +7,12 @@ const fs = require('fs');
 const path = require('path');
 const User = require('../model/Message')
 const { nextDay } = require('date-fns')
-const chatController = require('../controller/chatController')
+const chatController = require('../controller/chatController');
+const { route } = require("./userRoutes");
 
 
 router.route('/')
     .get(chatController.getAllChat)
-
     .post(chatController.addChat)
 
 router.route('/:id')
@@ -27,4 +27,8 @@ router.route('/:userId/chats')
 router.route('/:userId/:fId/chats')
     .get(chatController.getChatbyusers)
 
+router.route('/:userId/:friendId')
+    .post(chatController.addChat2)
+
 module.exports = router;
+

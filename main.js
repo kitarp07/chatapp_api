@@ -55,25 +55,30 @@ const getUser = (userId) => {
 
 
 io.on('connection', (socket) => {
-    console.log("connected io")
-    console.log(socket.id)
+    // console.log("connected io")
+    // console.log(socket.id)
 
     socket.on("/event", (id) => {
         console.log(id)
         clients[id] = socket;
-        console.log(clients)
+        // console.log(clients)
 
     })
 
-    socket.on("message", (res) => {
-        console.log(res)
-        let targetId = res.targetId;
-        if (clients[targetId]) {
-            clients[targetId].emit("message", res)
+   
 
-        }
+    // socket.on("message", (res) => {
+    //     console.log(res)
+    //     let targetId = res.targetId;
+    //     console.log(targetId)
+    //     if (clients[targetId]) {
+    //         // console.log(res)
+    //         clients[targetId].emit("gmessage", res)
+            
 
-    })
+    //     }
+
+    // })
 
     socket.on("addUser", userId => {
         addUserToList(userId, socket.id);
@@ -83,7 +88,7 @@ io.on('connection', (socket) => {
     });
 
 
-    //send and get message
+    // //send and get message
     socket.on("sendMsg", ({ senderId, receiverId, message }) => {
         const user = getUser(receiverId);
         io.to(user?.socketId).emit("getMsg", {
@@ -138,5 +143,7 @@ app.use((err, req, res, next) => {
     if (res.statusCode == 200) res.status(500)
     res.json({ "msg": err.message })
 })
+
+module.exports = app;
 
 

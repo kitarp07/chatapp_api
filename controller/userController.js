@@ -61,8 +61,9 @@ const getUsersExceptId = async (req, res, next) => {
         const contacts = await User.find({ _id: { $ne: `${req.params.id}`, } });
         console.log("hello")
 
-        res.status(200).json(
-            { data: contacts });
+        // res.status(200).json(
+        //     { data: contacts });
+        res.status(200).json(contacts);
     } catch (err) {
         res.status(500).json({
             success: false,
@@ -122,7 +123,7 @@ const updateUser = (req, res, next) => {
 const deleteUser = (req, res, next) => {
     User.findByIdAndDelete(req.params.id)
         .then((msg) => {
-            res.json(msg)
+            res.status(201).json(msg)
         }).catch(next)
 
 }

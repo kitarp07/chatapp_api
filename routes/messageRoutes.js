@@ -54,7 +54,7 @@ router.post('/', upload.single("message"), async (req, res, next) => {
 
 
 })
-    .post(messageController.addMessage)
+    // .post(messageController.addMessage)
 
 router.route('/')
     .delete(messageController.deleteMessage)

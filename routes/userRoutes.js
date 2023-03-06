@@ -8,7 +8,7 @@ const path = require('path');
 const User = require('../model/User')
 const { nextDay } = require('date-fns')
 const userController = require('../controller/userController')
-const upload = require ('../middleware/upload')
+const upload = require('../middleware/upload')
 
 //Validate upload file
 const FILE_TYPE_MAP = {
@@ -18,7 +18,7 @@ const FILE_TYPE_MAP = {
 };
 
 
-router.post('/register', upload.single("image"),(req, res, next) => {
+router.post('/register', upload.single("image"), (req, res, next) => {
     User.findOne({ username: req.body.username })
         .then(user => {
             if (user != null) {
@@ -38,21 +38,21 @@ router.post('/register', upload.single("image"),(req, res, next) => {
                     }
                 )
 
-                if(req.file) {
+                if (req.file) {
                     const filename = req.file.filename;
                     user.image = 'images/' + filename
                 }
-                else{
+                else {
                     user.image = 'images/avatar.png'
                 }
-                
-                
+
+
                 user.save().then(user => {
                     res.status(201).json({
                         'status': 'User registered successfully',
                         userId: user._id,
                         username: user.username,
-                        
+
                     })
                 }).catch(next)
             })
@@ -78,7 +78,7 @@ router.post('/login', (req, res, next) => {
                 let data = {
                     userId: user._id,
                     username: user.username
-                    
+
                 }
                 jwt.sign(data, process.env.SECRET,
                     { 'expiresIn': '1d' },
@@ -88,7 +88,7 @@ router.post('/login', (req, res, next) => {
                         console.log("logged in")
 
                         res.status(201).json({
-                            'statuss': 'Login Successful',
+                            'status': 'Login Successful',
                             token: token,
                             user: user,
                             userID: user._id
@@ -108,69 +108,69 @@ router.post('/login', (req, res, next) => {
 
 
 router.route('/:id')
-.get(userController.getUserById)
-.delete(userController.deleteUser)
+    .get(userController.getUserById)
+    .delete(userController.deleteUser)
 
-router.put('/:id', upload.single("image"), (req,res,next)=> {
+router.put('/:id', upload.single("image"), (req, res, next) => {
     User.findById(req.params.id)
-    .then((user) => {
-        if(req.body.fname){
-            user.fname = req.body.fname
-        }
-        if(req.body.lname){
-            user.lname = req.body.lname
+        .then((user) => {
+            if (req.body.fname) {
+                user.fname = req.body.fname
+            }
+            if (req.body.lname) {
+                user.lname = req.body.lname
 
-        }
-        if(req.body.username){
-            user.username = req.body.username
-        }
+            }
+            if (req.body.username) {
+                user.username = req.body.username
+            }
 
-        if (req.file) {
-            const filename = req.file.filename;
-            var img = 'images/' + filename;
+            if (req.file) {
+                const filename = req.file.filename;
+                var img = 'images/' + filename;
 
-            user.image = img
-        }
-        
-        if (req.body.password) {
-            bcrypt.hash(req.body.password, 10, (err, hash) => {
-                if (err) return next(err);
+                user.image = img
+            }
 
-                user.password = hash
+            if (req.body.password) {
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
+                    if (err) return next(err);
 
-            })
+                    user.password = hash
+
+                })
 
 
-        }
-        
-      
-        user.save().then(user => {
-            console.log(user);
-            res.status(201).json({
-                'status': 'User updated successfully',
-                userId: user._id,
-                username: user.username,
-                
-            })
+            }
+
+
+            user.save().then(user => {
+                console.log(user);
+                res.status(201).json({
+                    'status': 'User updated successfully',
+                    userId: user._id,
+                    username: user.username,
+
+                })
+            }).catch(next)
+
+
+
+
         }).catch(next)
-
-
-
-        
-    }).catch(next)
 }
 )
 
 router.route('/:id/contacts')
-.get(userController.getUsersExceptId)
+    .get(userController.getUsersExceptId)
 
 
 
 router
-.route('/')
-.get( userController.getAllUsers)
-.delete( userController.deleteAllUsers)
+    .route('/')
+    .get(userController.getAllUsers)
+    .delete(userController.deleteAllUsers)
 
 
 
-module.exports = router ;
+module.exports = router;

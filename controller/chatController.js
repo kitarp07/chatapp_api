@@ -22,7 +22,7 @@ const getAllChat = (req, res, next) => {
 }
 
 const getChatbyuserId = async (req, res, next) => {
-   
+
 
     try {
 
@@ -77,12 +77,6 @@ const getChatbyusers = async (req, res, next) => {
         }
 
 
-
-
-
-
-
-
         //  res.status(200).json(users);
     } catch (err) {
         res.status(500).json({
@@ -114,12 +108,11 @@ const addChat = async (req, res, next) => {
     try {
 
         const chat = await Chat.create({
-            members: [req.body.senderId, req.body.receiverId],
-
-
+            members: [req.body.senderId, req.body.receiverId]
         });
         if (chat) {
-            res.status(200).json(chat)
+            // res.status(201).json({ data: chat })
+            res.status(201).json(chat)
         }
 
     }
@@ -129,11 +122,53 @@ const addChat = async (req, res, next) => {
     }
 }
 
+const addChat2 = async (req, res, next) => {
+    Chat.findOne({ members : [req.params.userId  ,  req.params.friendId] }).then(
+        chat => {
+            console.log(req.params.userId)
+            console.log(req.params.friendId)
+            console.log(chat)
+            if (chat != null) {
+                let err = new Error(`Chat already exists`)
+                res.status(400)
+                return next(err)
 
-const deleteChat = (req, res, next) => {
+            } else {
+                try {
+
+                    // const chat = await Chat.create({
+                    //     members: [req.body.senderId, req.body.receiverId]
+                    // });
+                    // if (chat) {
+                    //     // res.status(201).json({ data: chat })
+                    //     res.status(201).json(chat)
+                    // }
+                    Chat.create({
+                        members: [req.body.senderId, req.body.receiverId]
+                    }).then(c => {
+                        res.status(201).json(c)
+
+                    })
+
+
+                }
+                catch (err) {
+                    next(err);
+
+                }
+            }
+        }
+    )
+
+
+}
+
+
+const deleteChat = async (req, res, next) => {
     Chat.findByIdAndDelete(req.params.id)
         .then((msg) => {
-            res.json(msg)
+
+            res.status(201).json(msg);
         }).catch(next)
 
 }
@@ -141,8 +176,8 @@ const deleteChat = (req, res, next) => {
 // const deleteChat = (req, res, next) => {
 //     Chat.deleteMany()
 //         .then( (msg) => {
-            
-           
+
+
 //             res.status(200).json(msg)
 //         }).catch(next)
 
@@ -178,5 +213,6 @@ module.exports = {
     deleteChat,
     getChatbyId,
     getChatbyuserId,
-    getChatbyusers
+    getChatbyusers,
+    addChat2
 }
